@@ -3,6 +3,19 @@
 		<v-lazy :min-height="200" :options="{ threshold: 0.5 }" transition="fade-transition">
 			<v-card>
 				<h2 style="text-align: center; padding-top: 20px">SpaceX Launches</h2>
+                <v-row justify="end">
+                    <v-col cols="auto">
+                        <v-select
+                            v-model="filterYear"
+                            :items="years"
+                            label="Filter by Year"
+                            dense
+                            clearable
+                            outlined
+                            class="small-filter"
+                            />
+                    </v-col>
+                </v-row>
                     <v-table height="620px" style="padding-left: 50px; padding-right: 50px">
                         <thead>
                             <tr>
@@ -33,17 +46,31 @@
                             </tr>
                         </tbody>
                     </v-table>
-				<v-pagination v-model="currentPage" size="small" :length="totalPages" :total-visible="5" />
 			</v-card>
 		</v-lazy>
 	</v-container>
 </template>
 
 <script lang="ts" setup>
-useHead({
-	title: 'SpaceX Launches',
-	meta: [{ name: 'SpaceX', content: 'SpaceX Launches.' }],
-})
+    useHead({
+        title: 'SpaceX Launches',
+        meta: [{ name: 'SpaceX', content: 'SpaceX Launches.' }],
+    })
 
-const launches = useLaunches()
+    const { launches, filterYear } = useLaunches()
+
+    const years = computed(() => {
+        const allYears = launches.value.map(launch => {
+            return new Date(launch.launch_date_utc).getFullYear().toString()
+        })
+    return [...new Set(allYears)].sort().reverse()
+    })
 </script>
+
+<style scoped>
+.small-filter {
+  min-width: 200px; 
+  float: right;
+  margin-right: 50px;
+}
+</style>

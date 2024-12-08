@@ -29,6 +29,17 @@ export const useLaunches = () =>{
             details: string
         }[]
     }>(query)
-    const launches = computed(()=>data.value?.launches ??[])
-    return launches
+    const filterYear = ref<string | null>(null)
+
+    const launches = computed(() => {
+        const allLaunches = data.value?.launches ?? []
+        if (!filterYear.value) return allLaunches
+        
+        return allLaunches.filter(launch => {
+            const launchYear = new Date(launch.launch_date_utc).getFullYear().toString()
+            return launchYear === filterYear.value
+        })
+    })
+
+  return { launches, filterYear }
 }
