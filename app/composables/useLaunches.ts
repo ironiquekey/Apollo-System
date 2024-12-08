@@ -52,6 +52,7 @@ export const useLaunches = () =>{
     const toggleSortOrder = () => {
 		sortOrder.value = sortOrder.value === 'asc' ? 'desc' : 'asc'
 	}
+    const favorite = favoriteStore()
 
-  return { launches: sortedLaunches, toggleSortOrder, sortOrder, filterYear}
+  return { launches: sortedLaunches, toggleSortOrder, sortOrder, filterYear, favorite}
 }
