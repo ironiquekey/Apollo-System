@@ -37,7 +37,7 @@
 </template>
 <script lang="ts" setup>
 useHead({
-	title: 'NuxtVGP - SpaceX Rockets',
+	title: 'SpaceX Rockets',
 	meta: [{ name: 'SpaceX', content: 'SpaceX Rockets.' }],
 })
 

@@ -30,16 +30,28 @@ export const useLaunches = () =>{
         }[]
     }>(query)
     const filterYear = ref<string | null>(null)
-
+    const sortOrder = ref<'asc' | 'desc'>('asc')
+    
     const launches = computed(() => {
         const allLaunches = data.value?.launches ?? []
         if (!filterYear.value) return allLaunches
-        
         return allLaunches.filter(launch => {
             const launchYear = new Date(launch.launch_date_utc).getFullYear().toString()
             return launchYear === filterYear.value
         })
     })
 
-  return { launches, filterYear }
+    const sortedLaunches = computed(() => {
+        return [...launches.value].sort((a, b) => {
+            const dateA = new Date(a.launch_date_utc).getTime()
+			const dateB = new Date(b.launch_date_utc).getTime()
+            return sortOrder.value === 'asc' ? dateA - dateB : dateB - dateA
+        })
+    })
+
+    const toggleSortOrder = () => {
+		sortOrder.value = sortOrder.value === 'asc' ? 'desc' : 'asc'
+	}
+
+  return { launches: sortedLaunches, toggleSortOrder, sortOrder, filterYear}
 }

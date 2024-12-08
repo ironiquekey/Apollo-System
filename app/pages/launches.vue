@@ -15,6 +15,11 @@
                             class="small-filter"
                             />
                     </v-col>
+                    <v-col cols="auto">
+                        <v-btn class="small-filter" style="margin: 12px; margin-right: 50px; min-width: 280px;" @click="toggleSortOrder">
+					        Sort by Date ({{ sortOrder === 'asc' ? 'Ascending' : 'Descending' }})
+				        </v-btn>
+                    </v-col>
                 </v-row>
                     <v-table height="620px" style="padding-left: 50px; padding-right: 50px">
                         <thead>
@@ -57,7 +62,7 @@
         meta: [{ name: 'SpaceX', content: 'SpaceX Launches.' }],
     })
 
-    const { launches, filterYear } = useLaunches()
+    const { launches, filterYear, toggleSortOrder, sortOrder } = useLaunches()
 
     const years = computed(() => {
         const allYears = launches.value.map(launch => {
@@ -69,8 +74,7 @@
 
 <style scoped>
 .small-filter {
-  min-width: 200px; 
-  float: right;
-  margin-right: 50px;
+    min-width: 200px; 
+    float: right;
 }
 </style>
