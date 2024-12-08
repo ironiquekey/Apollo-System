@@ -53,14 +53,11 @@
                             <td class="hide-text description">
                                 {{ launch.details ? launch.details : 'N/A' }}
                             </td>
-                            <td
-                                class="favorite text-center"
-                                @click="favorite.toggleFavorite(launch.mission_name)"
-                            >
+                            <td class="favorite text-center"
+                                @click="favorite.toggleFavorite(launch.mission_name)">
                                 <v-icon
                                     :icon="favorite.isFavorite(launch.mission_name) ? 'mdi-star' : 'mdi-star-plus-outline'"
-                                    class="icon"
-                                />
+                                    class="icon"/>
                             </td>
                         </tr>
                     </tbody>
